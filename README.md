@@ -27,6 +27,6 @@ Leia o QR Code com o Expo Go (Android) ou com a câmera (iOS).
 - `App.tsx`: a tela da prova de conceito.
 - `lib/peca.ts`: listas do ZYRA, schema zod e nome da peça calculado.
 - `lib/respostasIA.ts`: respostas simuladas do /analyze-clothing.
-- `components/`: campos ligados ao formulário pelo `useController`.
+- `components/ChoiceField.tsx` e `components/ColorField.tsx`: chips e campo de cor ligados ao formulário por `Controller`.
 - `CRITERIOS.md`: critérios de aceitação, escritos antes da implementação.
 - `PESQUISA.md`: diário de pesquisa, com fontes e erros da IA.
