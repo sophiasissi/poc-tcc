@@ -14,11 +14,14 @@ import { ColorField } from './components/ColorField';
 import {
   AQUECIMENTOS,
   CANOS,
+  CANO_LABEL,
+  CATEGORIA_LABEL,
   CATEGORIAS,
+  MATERIAL_LABEL,
   MATERIAIS,
   MANGAS,
   OCASIOES,
-  criarNomePeca,
+  nomeDaPeca,
   pecaSchema,
   precisaDeManga,
   type PieceFormValues,
@@ -33,36 +36,50 @@ const valoresIniciais: PieceFormValues = {
   cano: '',
   aquecimento: '',
   ocasioes: [],
-  cor: '',
+  corNome: '',
 };
 
-const capitalizar = (value: string) =>
-  value.length > 0 ? `${value[0].toUpperCase()}${value.slice(1)}` : value;
+const rotuloDoCodigo = (value: string) =>
+  value.toLowerCase().replaceAll('_', ' ');
 
 const opcoesCategoria: ChoiceOption[] = CATEGORIAS.map((value) => ({
   value,
-  label: capitalizar(value),
+  label: CATEGORIA_LABEL[value],
 }));
 const opcoesMaterial: ChoiceOption[] = MATERIAIS.map((value) => ({
   value,
-  label: capitalizar(value),
+  label: MATERIAL_LABEL[value],
 }));
 const opcoesManga: ChoiceOption[] = MANGAS.map((value) => ({
   value,
-  label: capitalizar(value),
+  label: rotuloDoCodigo(value),
 }));
 const opcoesCano: ChoiceOption[] = CANOS.map((value) => ({
   value,
-  label: capitalizar(value),
+  label: CANO_LABEL[value],
 }));
 const opcoesAquecimento: ChoiceOption[] = AQUECIMENTOS.map((value) => ({
   value,
-  label: capitalizar(value),
+  label: rotuloDoCodigo(value).replace('medio', 'médio'),
 }));
 const opcoesOcasiao: ChoiceOption[] = OCASIOES.map((value) => ({
   value,
-  label: capitalizar(value),
+  label: rotuloDoCodigo(value),
 }));
+
+const nomeParaExibicao = (
+  peca: Pick<PieceFormValues, 'categoria' | 'material' | 'manga' | 'cano'>,
+) => {
+  const categoria = CATEGORIAS.find((value) => value === peca.categoria);
+  if (!categoria) return 'Peça';
+
+  return nomeDaPeca({
+    categoria,
+    material: MATERIAIS.find((value) => value === peca.material),
+    manga: MANGAS.find((value) => value === peca.manga),
+    cano: CANOS.find((value) => value === peca.cano),
+  });
+};
 
 export default function App() {
   const [pecaSalva, setPecaSalva] = useState<ValidatedPiece | null>(null);
@@ -85,12 +102,12 @@ export default function App() {
   const material = watch('material');
   const manga = watch('manga');
   const cano = watch('cano');
-  const nomePeca = criarNomePeca({ categoria, material, manga, cano });
+  const nomePeca = nomeParaExibicao({ categoria, material, manga, cano });
   const quantidadeErros = Object.keys(errors).length;
   const exibirManga =
     precisaDeManga(categoria) || manga !== '' || Boolean(errors.manga);
   const exibirCano =
-    categoria === 'bota' || cano !== '' || Boolean(errors.cano);
+    categoria === 'BOTA' || cano !== '' || Boolean(errors.cano);
 
   const carregarResposta = (resposta: PieceFormValues) => {
     reset({ ...resposta, ocasioes: [...resposta.ocasioes] });
@@ -110,7 +127,7 @@ export default function App() {
       setValue('manga', '', { shouldDirty: true });
     }
 
-    if (novaCategoria !== 'bota') {
+    if (novaCategoria !== 'BOTA') {
       setValue('cano', '', { shouldDirty: true });
     }
 
@@ -305,10 +322,10 @@ export default function App() {
 
             <Controller
               control={control}
-              name="cor"
+              name="corNome"
               render={({ field }) => (
                 <ColorField
-                  error={errors.cor?.message}
+                  error={errors.corNome?.message}
                   onChangeText={(value) => {
                     setPecaSalva(null);
                     field.onChange(value);
@@ -343,7 +360,7 @@ export default function App() {
               <Text style={styles.successTitle}>
                 Peça validada, pronta para enviar ao back
               </Text>
-              <Text style={styles.savedName}>{criarNomePeca(pecaSalva)}</Text>
+              <Text style={styles.savedName}>{nomeParaExibicao(pecaSalva)}</Text>
               <Text style={styles.jsonLabel}>Objeto final validado</Text>
               <Text selectable style={styles.json}>
                 {JSON.stringify(pecaSalva, null, 2)}

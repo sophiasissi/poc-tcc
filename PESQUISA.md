@@ -106,6 +106,14 @@ Marque só as que você abriu e leu.
 - Como percebi: testando no celular e comparando com as listas do /analyze-clothing do ZYRA.
 - O certo: as listas do ZYRA (tipo Peca em src/services/pecasApi.ts). O AGENTS.md dizia "dentro das listas" sem trazê-las, e a IA completou a lacuna inventando valores plausíveis em vez de perguntar.
 
+## O que o código do ZYRA mostrou
+
+Pedi ao agente do repositório do TCC (sem alterar nada) os valores exatos do cadastro de peça. Descobertas:
+
+- O ZYRA guarda códigos (CALCA, DIA_A_DIA, SEM_MANGA) e mostra rótulos (calça, dia a dia, sem manga). A PoC passou a usar o mesmo formato.
+- Quando o gpt-4.1-mini devolve um valor fora da lista, a visão o transforma em vazio sem avisar (normalize_value, imt-tcc-zyra-vision/src/clothing_analysis/taxonomy.py:127-143). A pessoa nunca fica sabendo o que a IA sugeriu.
+- No cadastro, o back não valida de novo a análise: os valores vão direto para o banco (imt-tcc-zyra-back/src/pecas/pecas.service.ts:76-81). Só a correção manual (PATCH /pecas/:id) é validada.
+- Isso confirma a motivação da pesquisa: um schema compartilhado mostraria o erro para a pessoa corrigir, em vez de descartar o valor em silêncio.
 
 ## Resultado e próximos passos no TCC
 

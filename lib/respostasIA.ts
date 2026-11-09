@@ -2,21 +2,21 @@ import type { PieceFormValues } from './peca';
 
 export const respostasIA: Record<'correta' | 'comErros', PieceFormValues> = {
   correta: {
-    categoria: 'camiseta',
-    material: 'malha',
-    manga: 'curta',
+    categoria: 'CAMISETA',
+    material: 'MALHA',
+    manga: 'CURTA',
     cano: '',
-    aquecimento: 'leve',
-    ocasioes: ['dia a dia', 'casa'],
-    cor: 'azul',
+    aquecimento: 'LEVE',
+    ocasioes: ['DIA_A_DIA', 'CASA'],
+    corNome: 'azul',
   },
   comErros: {
-    categoria: 'bota',
-    material: 'algodão',
-    manga: 'curta',
+    categoria: 'BOTA',
+    material: 'ALGODAO',
+    manga: 'CURTA',
     cano: '',
-    aquecimento: 'leve',
+    aquecimento: 'LEVE',
     ocasioes: [],
-    cor: '',
+    corNome: '',
   },
 };
