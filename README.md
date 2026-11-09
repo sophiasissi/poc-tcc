@@ -4,7 +4,7 @@ Pesquisa aplicada com IA, disciplina de Aplicativos Híbridos (React Native + Ex
 
 **Pergunta:** como o react-hook-form com zod permite que a pessoa revise e corrija os campos de uma peça preenchidos pela IA do ZYRA antes de salvar, mesmo quando a IA manda valores fora da lista, campos que não se aplicam à categoria ou campos obrigatórios vazios?
 
-**Vídeo da apresentação:** [cole aqui o link do vídeo]
+**Vídeo da apresentação:** https://youtu.be/-yIlzXa9Tdg 
 
 ## O que a prova de conceito mostra
 
