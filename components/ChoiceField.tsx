@@ -26,6 +26,19 @@ type MultipleChoiceProps = SharedProps & {
 type ChoiceFieldProps = SingleChoiceProps | MultipleChoiceProps;
 
 export function ChoiceField(props: ChoiceFieldProps) {
+  const selectedValues = props.multiple
+    ? props.value
+    : props.value
+      ? [props.value]
+      : [];
+  const unknownValues = [
+    ...new Set(
+      selectedValues.filter(
+        (value) => !props.options.some((option) => option.value === value),
+      ),
+    ),
+  ];
+
   return (
     <View style={styles.field}>
       <Text style={styles.label}>{props.label}</Text>
@@ -68,6 +81,28 @@ export function ChoiceField(props: ChoiceFieldProps) {
             </Pressable>
           );
         })}
+        {unknownValues.map((value) => (
+          <Pressable
+            accessibilityLabel={`${value}, valor fora da lista. Remover`}
+            accessibilityRole="button"
+            key={`unknown-${value}`}
+            onPress={() => {
+              if (props.multiple) {
+                props.onChange(
+                  props.value.filter((selectedValue) => selectedValue !== value),
+                );
+              } else {
+                props.onChange('');
+              }
+            }}
+            style={({ pressed }) => [
+              styles.invalidOption,
+              pressed && styles.optionPressed,
+            ]}
+          >
+            <Text style={styles.invalidOptionText}>{value} ✕</Text>
+          </Pressable>
+        ))}
       </View>
       {props.error ? (
         <Text accessibilityLiveRegion="polite" style={styles.error}>
@@ -109,6 +144,23 @@ const styles = StyleSheet.create({
   },
   optionPressed: {
     opacity: 0.72,
+  },
+  invalidOption: {
+    alignItems: 'center',
+    backgroundColor: '#FFF8F7',
+    borderColor: '#B42318',
+    borderRadius: 999,
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    justifyContent: 'center',
+    minHeight: 40,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
+  invalidOptionText: {
+    color: '#A5221D',
+    fontSize: 13,
+    textDecorationLine: 'line-through',
   },
   optionText: {
     color: '#4D4F62',

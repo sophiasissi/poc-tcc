@@ -288,15 +288,22 @@ export const pecaSchema = z
         message: mensagem,
       });
     };
+    const mensagemValorInvalido = (valor: string, escolha: string) =>
+      `A IA sugeriu "${valor}", que não está na lista. Escolha ${escolha}.`;
 
     if (!estaNaLista(peca.categoria, CATEGORIAS)) {
-      adicionarErro('categoria', 'Selecione uma categoria válida.');
+      adicionarErro(
+        'categoria',
+        mensagemValorInvalido(peca.categoria, 'uma categoria'),
+      );
     }
 
     if (!estaNaLista(peca.material, MATERIAIS)) {
       adicionarErro(
         'material',
-        peca.material ? 'Escolha um material da lista.' : 'Selecione o material.',
+        peca.material
+          ? mensagemValorInvalido(peca.material, 'um material')
+          : 'Selecione o material.',
       );
     }
 
@@ -304,7 +311,10 @@ export const pecaSchema = z
       adicionarErro(
         'aquecimento',
         peca.aquecimento
-          ? 'Escolha um nível de aquecimento da lista.'
+          ? mensagemValorInvalido(
+              peca.aquecimento,
+              'um nível de aquecimento',
+            )
           : 'Selecione o aquecimento.',
       );
     }
@@ -313,23 +323,30 @@ export const pecaSchema = z
       if (!peca.manga) {
         adicionarErro('manga', 'Selecione o comprimento da manga.');
       } else if (!estaNaLista(peca.manga, MANGAS)) {
-        adicionarErro('manga', 'Escolha uma opção de manga da lista.');
+        adicionarErro(
+          'manga',
+          mensagemValorInvalido(peca.manga, 'uma opção de manga'),
+        );
       }
     } else if (peca.manga !== '') {
-      adicionarErro(
-        'manga',
-        'Manga não se aplica a esta categoria. Limpe a seleção.',
-      );
+      adicionarErro('manga', estaNaLista(peca.manga, MANGAS)
+        ? 'Manga não se aplica a esta categoria. Limpe a seleção.'
+        : mensagemValorInvalido(peca.manga, 'uma opção de manga'));
     }
 
     if (peca.categoria === 'BOTA') {
       if (!peca.cano) {
         adicionarErro('cano', 'Selecione o comprimento do cano.');
       } else if (!estaNaLista(peca.cano, CANOS)) {
-        adicionarErro('cano', 'Escolha uma opção de cano da lista.');
+        adicionarErro(
+          'cano',
+          mensagemValorInvalido(peca.cano, 'uma opção de cano'),
+        );
       }
     } else if (peca.cano !== '') {
-      adicionarErro('cano', 'Cano só se aplica à bota. Limpe a seleção.');
+      adicionarErro('cano', estaNaLista(peca.cano, CANOS)
+        ? 'Cano só se aplica à bota. Limpe a seleção.'
+        : mensagemValorInvalido(peca.cano, 'uma opção de cano'));
     }
 
     if (!aoMenosUmaOcasiaoSchema.safeParse(peca.ocasioes).success) {
@@ -337,7 +354,10 @@ export const pecaSchema = z
     } else {
       peca.ocasioes.forEach((ocasiao) => {
         if (!estaNaLista(ocasiao, OCASIOES)) {
-          adicionarErro('ocasioes', 'Escolha ocasiões da lista.');
+          adicionarErro(
+            'ocasioes',
+            mensagemValorInvalido(ocasiao, 'uma ocasião'),
+          );
         }
       });
     }
