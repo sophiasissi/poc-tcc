@@ -23,13 +23,13 @@ Outras bibliotecas de validação citadas pelo ChatGPT, que poderiam substituir 
 
 | Pacote | Versão atual | Lançada em | Situação |
 |---|---|---|---|
-| react-hook-form | 7.91.0 | outubro de 2026 | Segundo o ChatGPT e o Gemini [confira no npm] |
+| react-hook-form | 7.91.0 | outubro de 2026 | Informado pelas duas IAs (não conferido) |
 | zod | 4.6.7 | 12/10/2026 | Confirmado |
 | @hookform/resolvers | 7.0.3 | 05/11/2026 | Confirmado |
 | formik | 2.4.9 | 10/11/2025 | Confirmado |
-| @tanstack/react-form | 1.33.5 | agosto de 2026 | Segundo o ChatGPT e o Gemini [confira no npm] |
+| @tanstack/react-form | 1.33.5 | agosto de 2026 | Informado pelas duas IAs (não conferido) |
 
-Na instalação vale a versão que o `npx expo install` escolher; confira no `package.json` depois de instalar.
+Na instalação vale a versão que o `npx expo install` escolheu; ela está no `package.json`.
 
 ### Comparação entre as IAs
 
@@ -59,29 +59,29 @@ Os dois usaram o asterisco para marcar o que não tinham certeza, como o prompt 
 
 **Prompt 3 (NotebookLM, só com as fontes oficiais):** acertou a parte do Zod. Explicou que o `path: ["manga"]` põe o erro no campo manga e que o `when` faz a regra rodar mesmo com outros campos inválidos. Mas o exemplo de integração foi escrito para a web (ver abaixo).
 
-### Observação sobre o agente
+### Observações sobre o agente
 
-No teste do MCP, a busca de documentação do Expo não encontrou as páginas do react-hook-form e do zod, porque ela indexa só a documentação do Expo. O agente contornou isso lendo a versão `.md` da página do react-hook-form com a ferramenta de leitura do Expo.
+- No teste do MCP, a busca de documentação do Expo não encontrou as páginas do react-hook-form e do zod, porque ela indexa só a documentação do Expo. O agente contornou isso lendo a versão `.md` da página do react-hook-form com a ferramenta de leitura do Expo.
+- Para o problema do teclado cobrindo o campo de cor, o agente consultou pelo MCP o guia de teclado do Expo e seguiu a recomendação dele (`KeyboardAvoidingView` com `behavior="padding"`), sem instalar biblioteca. Antes disso, fez várias buscas vazias até achar a ferramenta certa.
+- Os testes que o próprio agente escreveu falharam algumas vezes por erro do teste, não do app (por exemplo, usou `SANDALIA` como categoria inválida logo depois de tê-la incluído na lista). O critério continuou sendo o app rodando no celular.
 
 ## Fontes oficiais lidas
 
-Marque só as que você abriu e leu.
-
-- [X] React Hook Form, useForm (https://react-hook-form.com/docs/useform)
-- [X] React Hook Form, useController (https://react-hook-form.com/docs/usecontroller)
-- [X] React Hook Form, Controller, com exemplo em React Native (https://react-hook-form.com/docs/usecontroller/controller)
-- [X] React Hook Form, trigger (https://react-hook-form.com/docs/useform/trigger)
-- [X] React Hook Form Resolvers, seção do Zod (https://github.com/react-hook-form/resolvers)
-- [X] Zod, documentação (https://zod.dev)
-- [X] Zod, API: refinements, `path` e `when` (https://zod.dev/api)
-- [X] Zod 4, guia de migração (https://zod.dev/v4/changelog)
-- [X] TanStack Form, uso com React Native (https://tanstack.com/form/latest/docs/framework/react/guides/react-native)
-- [X] React Native, TextInput (https://reactnative.dev/docs/textinput)
-- [X] React Native, Pressable (https://reactnative.dev/docs/pressable)
-- [X] Expo, usando bibliotecas e `npx expo install` (https://docs.expo.dev/workflow/using-libraries)
-- [X] Expo, servidor MCP (https://docs.expo.dev/eas/ai/mcp)
-- [X] npm, formik (https://www.npmjs.com/package/formik)
-- [X] npm, zod (https://www.npmjs.com/package/zod)
+- [x] React Hook Form, useForm (https://react-hook-form.com/docs/useform)
+- [x] React Hook Form, useController (https://react-hook-form.com/docs/usecontroller)
+- [x] React Hook Form, Controller, com exemplo em React Native (https://react-hook-form.com/docs/usecontroller/controller)
+- [x] React Hook Form, trigger (https://react-hook-form.com/docs/useform/trigger)
+- [x] React Hook Form Resolvers, seção do Zod (https://github.com/react-hook-form/resolvers)
+- [x] Zod, documentação (https://zod.dev)
+- [x] Zod, API: refinements, `path` e `when` (https://zod.dev/api)
+- [x] Zod 4, guia de migração (https://zod.dev/v4/changelog)
+- [x] TanStack Form, uso com React Native (https://tanstack.com/form/latest/docs/framework/react/guides/react-native)
+- [x] React Native, TextInput (https://reactnative.dev/docs/textinput)
+- [x] React Native, Pressable (https://reactnative.dev/docs/pressable)
+- [x] Expo, usando bibliotecas e `npx expo install` (https://docs.expo.dev/workflow/using-libraries)
+- [x] Expo, servidor MCP (https://docs.expo.dev/eas/ai/mcp)
+- [x] npm, formik (https://www.npmjs.com/package/formik)
+- [x] npm, zod (https://www.npmjs.com/package/zod)
 
 ## Onde a IA errou
 
@@ -102,9 +102,9 @@ Marque só as que você abriu e leu.
 ### 3. Copilot: listas de opções inventadas
 
 - Pedido: implementar a prova de conceito descrita no AGENTS.md (Copilot em modo Agent).
-- O que veio: o formulário funcionou, mas com listas inventadas: categorias como Regata, Bermuda e Sandália, que o ZYRA não tem; só 5 materiais, incluindo "Sintético"; aquecimento "Alto" no lugar de "quente"; ocasiões "Esporte" e "Passeio"; e uma opção "Não se aplica" em manga e cano.
-- Como percebi: testando no celular e comparando com as listas do /analyze-clothing do ZYRA.
-- O certo: as listas do ZYRA (tipo Peca em src/services/pecasApi.ts). O AGENTS.md dizia "dentro das listas" sem trazê-las, e a IA completou a lacuna inventando valores plausíveis em vez de perguntar.
+- O que veio: o formulário funcionou, mas com listas inventadas: Regata, Casaco e Bermuda como categorias (no ZYRA, regata e casaco são só nomes calculados, e bermuda não existe); só 5 materiais, incluindo "Sintético"; aquecimento "Alto" no lugar de "quente"; ocasiões "Esporte" e "Passeio"; e uma opção "Não se aplica" em manga e cano.
+- Como percebi: testando no celular e comparando com as listas do ZYRA.
+- O certo: as listas do tipo Peca em src/services/pecasApi.ts do ZYRA. O AGENTS.md dizia "dentro das listas" sem trazê-las, e a IA completou a lacuna inventando valores plausíveis em vez de perguntar.
 
 ## O que o código do ZYRA mostrou
 
@@ -115,8 +115,25 @@ Pedi ao agente do repositório do TCC (sem alterar nada) os valores exatos do ca
 - No cadastro, o back não valida de novo a análise: os valores vão direto para o banco (imt-tcc-zyra-back/src/pecas/pecas.service.ts:76-81). Só a correção manual (PATCH /pecas/:id) é validada.
 - Isso confirma a motivação da pesquisa: um schema compartilhado mostraria o erro para a pessoa corrigir, em vez de descartar o valor em silêncio.
 
+## Como a prova de conceito foi construída
+
+Com o Copilot em modo Agent, um pedido por vez, testando no celular e fazendo um commit a cada rodada:
+
+1. Implementação inicial: formulário, schema, respostas simuladas e campos. Funcionou, mas com as listas inventadas (erro 3).
+2. Listas do ZYRA e possibilidade de desmarcar uma opção tocando nela de novo.
+3. Códigos, rótulos e `nomeDaPeca` copiados do `pecasApi.ts` do ZYRA, incluindo as categorias sandália e chinelo.
+4. Valor fora da lista visível: o chip riscado "ALGODAO ✕" e a mensagem dizendo o que a IA sugeriu.
+5. Campo de cor visível acima do teclado.
+
 ## Resultado e próximos passos no TCC
 
-- [Preencha depois de testar no celular. Exemplo do que pode entrar: a prova de conceito mostrou que o schema zod consegue barrar os erros típicos da IA (valor fora da lista, campo que não se aplica, campo vazio) e mostrar todos de uma vez, e que o react-hook-form só entrega os dados ao salvar quando tudo passa.]
-- [O que muda no ZYRA: por exemplo, levar o `pecaSchema` para a tela de cadastro real, validar a resposta do /analyze-clothing com o mesmo schema e reaproveitar o tipo `PecaValidada` no `pecasApi.ts`.]
-- Ideia vinda do ChatGPT, a avaliar: além de validar, marcar quais campos a pessoa confirmou, e repetir a validação no back antes de gravar.
+- A prova de conceito mostrou que um schema zod usado pelo react-hook-form barra os três erros típicos da IA (valor fora da lista, campo que não se aplica à categoria e campo obrigatório vazio) e mostra todos de uma vez, cada um no seu campo. Com o `when` do Zod 4, as regras entre campos aparecem junto com os outros erros.
+- A pessoa vê o que a IA sugeriu mesmo quando o valor não existe (o chip "ALGODAO ✕"), em vez de o valor sumir em silêncio como acontece hoje no ZYRA.
+- O react-hook-form só entrega os dados ao salvar quando tudo passa no schema, e o nome da peça é calculado pela mesma `nomeDaPeca` do app real.
+
+O que muda no ZYRA:
+
+1. Levar o `pecaSchema` para a tela de cadastro real, que já usa os mesmos códigos e rótulos do `pecasApi.ts`.
+2. Mostrar para a pessoa o valor que a IA sugeriu fora da lista, em vez de descartá-lo no `normalize_value` da visão.
+3. Validar também no cadastro do back, não só na correção manual (PATCH /pecas/:id).
+4. Avaliar a ideia que veio do ChatGPT: marcar quais campos a pessoa confirmou, separado da validação.
