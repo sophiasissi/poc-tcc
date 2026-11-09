@@ -346,7 +346,7 @@ export default function App() {
                 pressed && styles.buttonPressed,
               ]}
             >
-              <Text style={styles.saveButtonText}>Salvar peça</Text>
+              <Text style={styles.saveButtonText}>Salvar no closet</Text>
             </Pressable>
 
             {tentouSalvar && quantidadeErros > 0 && (
