@@ -99,6 +99,14 @@ Marque só as que você abriu e leu.
 - Como percebi: esses elementos são do HTML e não existem no React Native. A própria página do Controller, que estava entre as fontes, mostra que no React Native o campo é ligado com `Controller` e `onChangeText`.
 - O certo: no React Native, cada campo é ligado ao formulário com `Controller` ou `useController` (https://react-hook-form.com/docs/usecontroller/controller), e o envio é um `Pressable` que chama `handleSubmit`.
 
+### 3. Copilot: listas de opções inventadas
+
+- Pedido: implementar a prova de conceito descrita no AGENTS.md (Copilot em modo Agent).
+- O que veio: o formulário funcionou, mas com listas inventadas: categorias como Regata, Bermuda e Sandália, que o ZYRA não tem; só 5 materiais, incluindo "Sintético"; aquecimento "Alto" no lugar de "quente"; ocasiões "Esporte" e "Passeio"; e uma opção "Não se aplica" em manga e cano.
+- Como percebi: testando no celular e comparando com as listas do /analyze-clothing do ZYRA.
+- O certo: as listas do ZYRA (tipo Peca em src/services/pecasApi.ts). O AGENTS.md dizia "dentro das listas" sem trazê-las, e a IA completou a lacuna inventando valores plausíveis em vez de perguntar.
+
+
 ## Resultado e próximos passos no TCC
 
 - [Preencha depois de testar no celular. Exemplo do que pode entrar: a prova de conceito mostrou que o schema zod consegue barrar os erros típicos da IA (valor fora da lista, campo que não se aplica, campo vazio) e mostrar todos de uma vez, e que o react-hook-form só entrega os dados ao salvar quando tudo passa.]

@@ -57,6 +57,14 @@ Docs: https://docs.expo.dev/eas/index.md
 - Uma tela só, em `App.tsx`: dois botões simulam a resposta da IA (uma correta e uma com erros); o formulário é preenchido, os campos com problema aparecem em vermelho com a mensagem, a pessoa corrige tocando nas opções e, ao tocar em Salvar, vê o objeto final validado.
 - Não chamar a API real: a resposta da IA é simulada em `lib/respostasIA.ts`.
 - Regras do schema: categoria, material e aquecimento obrigatórios e dentro das listas; manga obrigatória só nas peças de cima, body e vestido (e vazia nas outras); cano obrigatório só na bota (e vazio nas outras); pelo menos uma ocasião; nome da cor com 3 letras ou mais.
+- Listas oficiais do ZYRA (usar exatamente esta grafia):
+  - Categoria: camiseta, blusa, camisa, moletom, jaqueta, blazer, colete, corset, cropped, top, body, calça, short, saia, vestido, tênis, sapato, bota
+  - Material: jeans, couro, moletom, malha, poliamida, tricô, soft, linho, alfaiataria, cetim, viscose, veludo
+  - Manga: sem manga, curta, longa (só para camiseta, blusa, camisa, moletom, jaqueta, blazer, colete, corset, cropped, top, body e vestido)
+  - Cano: curto, médio, longo, acima do joelho (só para bota)
+  - Aquecimento: leve, médio, quente
+  - Ocasiões: dia a dia, trabalho, festa, academia, praia, casa
+- Não existe a opção "Não se aplica": quando manga ou cano não se aplicam, o valor fica vazio; tocar numa opção já marcada deve desmarcá-la.
 - O nome da peça (ex.: "Camiseta de malha manga curta") é calculado a partir dos campos, nunca guardado em estado.
 - Campos de escolha são botões tocáveis (chips) feitos com `Pressable`; não instalar biblioteca de UI ou de picker.
 - Não usar Expo Router, a menos que a tecnologia investigada seja a navegação.

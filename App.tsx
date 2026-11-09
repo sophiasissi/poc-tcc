@@ -47,14 +47,14 @@ const opcoesMaterial: ChoiceOption[] = MATERIAIS.map((value) => ({
   value,
   label: capitalizar(value),
 }));
-const opcoesManga: ChoiceOption[] = [
-  { value: '', label: 'Não se aplica' },
-  ...MANGAS.map((value) => ({ value, label: capitalizar(value) })),
-];
-const opcoesCano: ChoiceOption[] = [
-  { value: '', label: 'Não se aplica' },
-  ...CANOS.map((value) => ({ value, label: capitalizar(value) })),
-];
+const opcoesManga: ChoiceOption[] = MANGAS.map((value) => ({
+  value,
+  label: capitalizar(value),
+}));
+const opcoesCano: ChoiceOption[] = CANOS.map((value) => ({
+  value,
+  label: capitalizar(value),
+}));
 const opcoesAquecimento: ChoiceOption[] = AQUECIMENTOS.map((value) => ({
   value,
   label: capitalizar(value),

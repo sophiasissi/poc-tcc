@@ -2,50 +2,65 @@ import { z } from 'zod';
 
 export const CATEGORIAS = [
   'camiseta',
-  'regata',
   'blusa',
   'camisa',
-  'casaco',
+  'moletom',
   'jaqueta',
+  'blazer',
+  'colete',
+  'corset',
+  'cropped',
+  'top',
+  'body',
   'calça',
-  'bermuda',
+  'short',
   'saia',
   'vestido',
-  'body',
-  'bota',
+  'tênis',
   'sapato',
-  'sandália',
+  'bota',
 ] as const;
 
 export const MATERIAIS = [
-  'malha',
   'jeans',
   'couro',
+  'moletom',
+  'malha',
+  'poliamida',
+  'tricô',
+  'soft',
   'linho',
-  'sintético',
+  'alfaiataria',
+  'cetim',
+  'viscose',
+  'veludo',
 ] as const;
 
-export const MANGAS = ['curta', 'longa', 'sem manga'] as const;
-export const CANOS = ['curto', 'médio', 'longo'] as const;
-export const AQUECIMENTOS = ['leve', 'médio', 'alto'] as const;
+export const MANGAS = ['sem manga', 'curta', 'longa'] as const;
+export const CANOS = ['curto', 'médio', 'longo', 'acima do joelho'] as const;
+export const AQUECIMENTOS = ['leve', 'médio', 'quente'] as const;
 export const OCASIOES = [
   'dia a dia',
-  'casa',
   'trabalho',
   'festa',
-  'esporte',
-  'passeio',
+  'academia',
+  'praia',
+  'casa',
 ] as const;
 
 const CATEGORIAS_COM_MANGA = [
   'camiseta',
-  'regata',
   'blusa',
   'camisa',
-  'casaco',
+  'moletom',
   'jaqueta',
-  'vestido',
+  'blazer',
+  'colete',
+  'corset',
+  'cropped',
+  'top',
   'body',
+  'vestido',
 ] as const;
 
 const estaNaLista = <T extends readonly [string, ...string[]]>(

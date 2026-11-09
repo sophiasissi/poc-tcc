@@ -48,7 +48,7 @@ export function ChoiceField(props: ChoiceFieldProps) {
                     : [...props.value, option.value];
                   props.onChange(nextValue);
                 } else {
-                  props.onChange(option.value);
+                  props.onChange(selected ? '' : option.value);
                 }
               }}
               style={({ pressed }) => [
